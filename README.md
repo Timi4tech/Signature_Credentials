@@ -11,6 +11,8 @@ A fullstack application for digitally signing documents using C2PA (Coalition fo
 - 💾 Secure credential management
 
 ## 🛠️ Tech Stack
+-Javascript
+-Ruby
 
 ### Backend
 - Node.js + Express
@@ -22,11 +24,11 @@ A fullstack application for digitally signing documents using C2PA (Coalition fo
 ### Frontend
 - React
 - Vite
-- Axios
 - TailwindCSS (if used)
 
 ## 📦 Installation
-
+## download ruby - https://rust-lang.org/tools/install/  (you will need to run your node js npm install @contentauth/c2pa-node)
+# see https://github.com/contentauth/c2pa-node-v2/tree/main?tab=readme-ov-file       
 ### Backend Setup
 ```bash
 cd backend
@@ -52,14 +54,14 @@ npm run dev
 ```
 CERTIFICATE_KEY=<your-certificate-pem>
 PRIVATE_KEY=<your-private-key-pem>
-PORT=3000
+PORT=
 ```
 
 ### Generating Certificates
 ```bash
 # Generate ES256 key pair
 openssl ecparam -genkey -name prime256v1 -out private_key.pem
-openssl req -x509 -new -key private_key.pem -out cert.pem -days 365
+please use cert from authorized vendors.
 ```
 
 ## 🚦 Usage
@@ -101,4 +103,4 @@ PORT=3000
 
 ### `frontend/.env.example`:
 ```
-VITE_API_URL=http://localhost:3000
+
