@@ -77,12 +77,14 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       console.log("Embedding C2PA manifest (memory-only, privacy-safe)...");
 
       // Create buffers from environment variables
-      const certificateBuffer = Buffer.from(
-        process.env.CERTIFICATE_KEY.replace(/\\n/g, '\n')
-      );
+      
 
       const privateKeyBuffer = Buffer.from(
         process.env.PRIVATE_KEY.replace(/\\n/g, '\n')
+      );
+
+      const certificateBuffer = Buffer.from(
+        process.env.CERTIFICATE_KEY.replace(/\\n/g, '\n')
       );
 
       // Create LocalSigner
@@ -105,21 +107,26 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       const builder = Builder.withJson(manifest);
 
       // Add assertions
-      builder.addAssertion('c2pa.actions', [
-        {
-          action: "c2pa.created",
-          softwareAgent: "SignatureApp/1.0",
-          when: new Date().toISOString()
-        }
-      ]);
+      builder.addAssertion('c2pa.actions', {
+  actions: [
+    {
+      action: "c2pa.created",
+      softwareAgent: "SignatureApp/1.0",
+      when: new Date().toISOString()
+    }
+  ]
+});
 
-      builder.addAssertion('c2pa.author', { 
-        name: authorName 
-      });
-
-      builder.addAssertion('c2pa.note', { 
-        summary: `Signed via SignatureApp. Signature: ${userSignature}` 
-      });
+      builder.addAssertion('c2pa.author', {
+  authors: [
+    {
+      name: authorName
+    }
+  ]
+});
+      builder.addAssertion('c2pa.note', 
+         `Signed via SignatureApp. Signature: ${userSignature}` 
+      );
 
       // Create asset object
       const inputAsset = {
