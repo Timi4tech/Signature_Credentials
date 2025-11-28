@@ -11,7 +11,7 @@ export default function C2PAImageApp() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
 
-  const API_URL =  import.meta.env.VITE_API_URL;
+  const API_URL =  import.meta.env.VITE_API_URL||'http://localhost:3000';
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
