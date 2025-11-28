@@ -94,8 +94,6 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       );
 
       
-      
-
       // Create manifest
       const manifest = {
         title: `${authorName} – Authenticated Image`,
@@ -282,6 +280,26 @@ app.post("/verify", upload.single("file"), async (req, res) => {
       verified: false 
     });
   }
+});
+
+app.get("/", (req, res) => {
+  res.json({ 
+    status: "ok", 
+    message: "SignatureApp C2PA API is running",
+    version: "1.0.0",
+    endpoints: {
+      health: "GET /health",
+      upload: "POST /upload - Sign an image with C2PA credentials",
+      verify: "POST /verify - Verify C2PA signature in an image"
+    }
+  });
+});
+
+app.get("/health", (req, res) => {
+  res.json({ 
+    status: "healthy", 
+    timestamp: new Date().toISOString()
+  });
 });
 
 app.listen(3000, () => {
